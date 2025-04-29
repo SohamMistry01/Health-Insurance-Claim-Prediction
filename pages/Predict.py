@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import base64
+import os
 
 # Background Image CSS
 def set_bg(image_file):
@@ -26,7 +27,8 @@ set_bg("bg_2.jpg")
 # Load the trained model
 @st.cache_resource()
 def load_model():
-    model = joblib.load("pages\\new_rf_model.pkl")  # Save and load your model here
+    model_path = os.path.join("pages", "new_rf_model.pkl")
+    model = joblib.load(model_path)  # Load your model here
     return model
 
 # Load your model

@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 import time
+import os
 
 with st.spinner("Running the model..."):
     time.sleep(1)
@@ -31,7 +32,8 @@ st.title("Model Building Overview")
 
 st.divider()
 
-with open("pages\model2.html", "r", encoding="utf-8") as f:
+html_path = os.path.join("pages", "model2.html")
+with open(html_path, "r", encoding="utf-8") as f:
     html_content = f.read()
 
 st.components.v1.html(html_content, height=800, scrolling=True)
