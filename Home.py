@@ -1,7 +1,12 @@
 import pandas as pd
 import streamlit as st
 import base64
+import google.generativeai as genai
 
+API_KEY = "AIzaSyCkDx8USWovaHEsXlA9KVzuz7EntRkxOnA"
+genai.configure(api_key=API_KEY)
+
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 # Background Image CSS
 def set_bg(image_file):
@@ -25,7 +30,7 @@ set_bg("bg_2.jpg")
 
 
 st.sidebar.title("Home")
-page = st.sidebar.radio("Go to", ["About", "Dataset Info"])
+page = st.sidebar.radio("Go to", ["About", "Dataset Info","Chat with Gemini"])
 
 if page == "About":
     st.title("Health Insurance Claim Prediction System")
@@ -55,6 +60,22 @@ elif page == "Dataset Info":
     st.subheader("Correlation matrix of the dataset: ")
     st.write(df.corr())
     st.divider()
+
+elif page == "Chat with Gemini":
+    st.title("Your AI Assistant")
+    st.divider()
+    st.write("Chat with Gemini! Press 'Exit' to quit.")
+
+    user_input = st.chat_input()
+    if st.button("Exit"):
+        st.caption("Chat dismissed...")
+        
+    if user_input:
+        chat = model.start_chat()
+        question = st.info(user_input)
+        response = chat.send_message(user_input)
+        message = st.chat_message(name='ai')
+        message.success(response.text)
     
     
 
