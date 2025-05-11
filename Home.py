@@ -2,8 +2,11 @@ import pandas as pd
 import streamlit as st
 import base64
 import google.generativeai as genai
+from dotenv import load_dotenv 
+import os
 
-API_KEY = "AIzaSyCkDx8USWovaHEsXlA9KVzuz7EntRkxOnA"
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 genai.configure(api_key=API_KEY)
 
 model = genai.GenerativeModel("gemini-2.0-flash")
