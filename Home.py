@@ -43,7 +43,7 @@ if page == "About":
     st.divider()
     st.subheader("Quick Links:")
     st.page_link("pages/Predict.py", label="⭕ Predict your Health Premium")
-    st.page_link("pages/Model_Overview.py", label="⭕ Overview of Trained Model")
+    st.page_link("pages/Model_Overview.py", label="🔍 Overview of Trained Model")
     st.page_link("pages/Visualizations.py", label="Explore Data Visualizations", icon="📊")
     st.divider()
 
@@ -74,7 +74,9 @@ elif page == "Chat with Gemini":
         st.caption("Chat dismissed...")
         
     if user_input:
-        chat = model.start_chat()
+        chat = model.start_chat(history=[
+            {"role": "user", "parts": ["You are a helpful medical assistant. Give proper health advises and information."]},
+        ])
         question = st.info(user_input)
         response = chat.send_message(user_input)
         message = st.chat_message(name='ai')
